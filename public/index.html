@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini chat</title>
+ 
+</head>
+<body style="background-color: rgb(34, 34, 39); color: white">
+  <h1>Mini Chat</h1>
+</body>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js" integrity="sha512-iZIBSs+gDyTH0ZhUem9eQ1t4DcEn2B9lHxfRMeGQhyNdSUz+rb+5A3ummX6DQTOIs1XK0gOteOg/LPtSo9VJ+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  const socket =  io('http://localhost:8080');
+
+  // Escuchando mensaje-bienvenida
+  socket.on('mensaje-bienvenida',( data )=>{
+    console.log(data);
+  });
+
+  // Emitimos evento mensaje-cliente
+  setTimeout(() => {
+     socket.emit('mensaje-cliente', {
+      msg:'Hola soy el cliente',
+      fecha: new Date()
+    });
+
+  }, 2000);
+
+</script>
+</html>
