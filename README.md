@@ -1,8 +1,9 @@
 ## Instalaciones utilizadas 
 
   * [socket.io](https://www.npmjs.com/package/socket.io)
-  * [Express](https://www.npmjs.com/package/express)
-  * [Nodemon](https://www.npmjs.com/package/nodemon)
+  * [express](https://www.npmjs.com/package/express)
+  * [nodemon](https://www.npmjs.com/package/nodemon)
+  * [dotenv](https://www.npmjs.com/package/dotenv)
 
 
 
