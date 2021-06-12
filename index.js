@@ -16,14 +16,21 @@ io.on('connection', (socket) => {
   // console.log(socket.id);
 
   // Emitimos evento mensaje-bienvenida
-  socket.emit('mensaje-bienvenida', {
-      msg:'Bienvenido al server',
-      fecha: new Date()
-  });
+  // socket.emit('mensaje-bienvenida', {
+  //     msg:'Bienvenido al server',
+  //     fecha: new Date()
+  // });
 
   // Escuchamos evento mensaje-cliente
-  socket.on('mensaje-cliente', (data) => {
+  socket.on('mensaje-to-server', (data) => {
     console.log(data);
+    
+    // Notificamos el mensaje que estamos recibiendo (data)
+    // socket.emit('mensaje-from-server', data);
+
+    // Envió de mensaje global con io : io emite a todos
+    io.emit('mensaje-from-server',data);
+
   });
 
 });
