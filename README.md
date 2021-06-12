@@ -4,6 +4,7 @@
   * [express](https://www.npmjs.com/package/express)
   * [nodemon](https://www.npmjs.com/package/nodemon)
   * [dotenv](https://www.npmjs.com/package/dotenv)
+  * [cors](https://www.npmjs.com/package/cors)
 
 
 
