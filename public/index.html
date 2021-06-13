@@ -14,32 +14,8 @@
   </head>
   <body class="container text-light bg-dark">
 
-    <h1 class="mt-5">Mini Chat</h1>
-    <hr />
-
-
-    <form id="miFormulario">
-      <div class="row">
-
-        <div class="col-8">
-          <input id="txtMensaje" type="text" placeholder="Mensaje" class="form-control">
-        </div>
-        <div class="col-4">
-          <button type="submit" class="btn btn-primary">
-            Enviar
-          </button>
-        </div>
-
-      </div>
-    </form>
-
-    <div class="row mt-2">
-      <div class="col">
-        <ul id="misMensajes"></ul>
-      </div>
-    </div>
-
-
+    <h1 class="mt-5">Acceso denegado</h1>
+    <hr>
 
   </body>
   <script
@@ -50,44 +26,17 @@
       >
   </script>
   <script>
-    const socket = io("https://react-socket-server-pedro.herokuapp.com/");
+        // Conexión con el socket server
+        const socket = io('http://localhost:8080');
 
-    // Referencias al elemento DOM - salto al dom una vez
-    const formulario = document.querySelector('#miFormulario');
-    const mensajes   = document.querySelector('#misMensajes');
-    const txtMensaje = document.querySelector('#txtMensaje');
-
-    // Posteo del Formulario
-    formulario.addEventListener('submit', (ev) =>{
-      ev.preventDefault();
-      const nuevoMensaje = txtMensaje.value;
-      // Emitimos un mensaje
-      socket.emit('mensaje-to-server',{ texto:nuevoMensaje});
-    });
-
-    // Escuchamos un mensaje que viene desde el servidor
-    socket.on('mensaje-from-server', (data) => {
-      console.log(data);
-
-      mensajes.innerHTML += `<li>${data.texto}</li>`;
-
-    });
-
-
-
-
-    // Escuchando mensaje-bienvenida
-    // socket.on("mensaje-bienvenida", (data) => {
-    //   console.log(data);
-    // });
-
-    // Emitimos evento mensaje-cliente
-    // setTimeout(() => {
-    //   socket.emit("mensaje-cliente", {
-    //     msg: "Hola soy el cliente",
-    //     fecha: new Date(),
-    //   });
-    // }, 2000);
+        /// Para emitir
+        // socket.emit('mensaje-to-server', { data });
+        
+        // Para escuchar
+        socket.on('current-bands', (data) => {
+            // callback a ejecutar
+            console.log(data);
+        });
 
 
   </script>
