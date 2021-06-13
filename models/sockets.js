@@ -22,6 +22,15 @@ class Sockets {
     this.io.on('connection', ( socket ) => {
       // console.log('cliente conectado !!!');
 
+      // Escuchamos evento mensaje-cliente 
+      socket.on('mensaje-to-server', (data) => {
+        console.log(data);
+        // Notificamos el mensaje que estamos recibiendo (data)
+        // socket.emit('mensaje-from-server', data);
+        // Envió de mensaje global con io : io emite a todos
+        this.io.emit('mensaje-from-server', data);
+      });
+
     // Primer evento de sockets - emitir al cliente conectado todas las bandas actuales
     socket.emit('current-bands', this.bandList.getBand() );
 
