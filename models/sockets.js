@@ -1,4 +1,5 @@
 const BandList = require('./band-list');
+const TicketList = require('./ticket-list');
 
 
 class Sockets {
@@ -10,6 +11,10 @@ class Sockets {
     // Bands
     this.bandList = new BandList;
 
+    // Crear instancia de nuestro ticket-list
+    this.ticketList = new TicketList();
+
+
     // Llamamos nuestro socketEvent
     this.socketEvents();
 
@@ -20,11 +25,11 @@ class Sockets {
   socketEvents(){
     // On connection  
     this.io.on('connection', ( socket ) => {
-      // console.log('cliente conectado !!!');
+      console.log('cliente conectado !!!');
 
       // Escuchamos evento mensaje-cliente 
       socket.on('mensaje-to-server', (data) => {
-        console.log(data);
+        // console.log(data);
         // Notificamos el mensaje que estamos recibiendo (data)
         // socket.emit('mensaje-from-server', data);
         // Envió de mensaje global con io : io emite a todos
@@ -34,6 +39,12 @@ class Sockets {
     // Primer evento de sockets - emitir al cliente conectado todas las bandas actuales
     socket.emit('current-bands', this.bandList.getBand() );
 
+    /****************************************************************************************
+     * BANDNAMES SOCKETS
+     * 
+     ****************************************************************************************
+     */
+
     // Votar por la banda
     socket.on('votar-banda', ( id ) => {
       // incremento los votos
@@ -41,6 +52,7 @@ class Sockets {
       // actualizo información
       this.io.emit('current-bands', this.bandList.getBand());
     });
+
     // Votar por la banda
     socket.on('descontar-banda', ( id ) => {
       // decremento de los votos
@@ -56,6 +68,7 @@ class Sockets {
         // actualizo información
         this.io.emit('current-bands', this.bandList.getBand());
     });
+
     // Cambiar nombre de anda
       socket.on('cambiar-nombre-banda', ({id, nombre })=>{
         this.bandList.changeName(id,nombre);
@@ -65,11 +78,39 @@ class Sockets {
 
     // Agregar Banda
       socket.on('agregar-banda', ({nombre})=>{
-        console.log(nombre)
+        // console.log(nombre);
         this.bandList.addBand(nombre);
         // actualizo información
         this.io.emit('current-bands', this.bandList.getBand());
     });
+
+      /****************************************************************************************
+       *  TICKET  SOCKETS
+       *
+       ****************************************************************************************
+       */
+       
+       socket.on('solicitar-ticket', (data, callback) => {
+         
+         const nuevoTicket = this.ticketList.crearTicket();
+         console.log(nuevoTicket)
+
+         callback(nuevoTicket);
+        
+       });
+
+
+      // socket para siguienteTicket
+      socket.on('siguiente-ticket-trabajar', ({ agente, escritorio }, callback) => {
+
+        const suTicket = this.ticketList.asignarTicket(agente, escritorio);
+        callback(suTicket);
+
+        this.io.emit('ticket-asignado', this.ticketList.ultimos13 );
+
+
+      });
+
 
 
 

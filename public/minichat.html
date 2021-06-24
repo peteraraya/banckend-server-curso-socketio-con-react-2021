@@ -71,7 +71,7 @@
 
     // Escuchamos un mensaje que viene desde el servidor
     socket.on('mensaje-from-server', (data) => {
-      console.log(data);
+      // console.log(data);
 
       mensajes.innerHTML += `<li>${data.texto}</li>`;
 
