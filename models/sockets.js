@@ -1,4 +1,5 @@
 const BandList = require('./band-list');
+const Marcadores = require('./marcadores');
 const TicketList = require('./ticket-list');
 
 
@@ -13,6 +14,10 @@ class Sockets {
 
     // Crear instancia de nuestro ticket-list
     this.ticketList = new TicketList();
+
+    // Marcadores
+    this.marcadores = new Marcadores();
+
 
 
     // Llamamos nuestro socketEvent
@@ -111,8 +116,31 @@ class Sockets {
 
       });
 
+      /****************************************************************************************
+          *  MARCADORES SOCKETS
+          *
+          ****************************************************************************************
+      */
 
+      // marcadores-activos
+      socket.emit('marcadores-activos', this.marcadores.activos );
 
+      // marcador-nuevo
+      socket.on('marcador-nuevo', (marcador) =>{
+        // console.log('marcador-nuevo', marcador);
+        this.marcadores.agregarMarcador( marcador );
+        // emitimos un brodcast a todos los demas clientes ( lo muestra a todos menos al que lo emitio )
+        socket.broadcast.emit('marcador-nuevo', marcador);
+
+      });
+      
+      // marcador-actualizado
+      socket.on('marcador-actualizado',(marcador)=>{
+
+        this.marcadores.actualizarMarcador(marcador);
+        socket.broadcast.emit('marcador-actualizado', marcador);
+
+      });
 
 
     });
