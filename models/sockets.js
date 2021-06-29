@@ -1,6 +1,6 @@
-const BandList = require('./band-list');
-const Marcadores = require('./marcadores');
-const TicketList = require('./ticket-list');
+const BandList = require('./bands/band-list');
+const Marcadores = require('./marcadores/marcadores');
+const TicketList = require('./tickets/ticket-list');
 
 
 class Sockets {
@@ -44,10 +44,9 @@ class Sockets {
     // Primer evento de sockets - emitir al cliente conectado todas las bandas actuales
     socket.emit('current-bands', this.bandList.getBand() );
 
-    /****************************************************************************************
+    /***************************
      * BANDNAMES SOCKETS
-     * 
-     ****************************************************************************************
+     ***************************
      */
 
     // Votar por la banda
@@ -89,10 +88,9 @@ class Sockets {
         this.io.emit('current-bands', this.bandList.getBand());
     });
 
-      /****************************************************************************************
+      /**********************
        *  TICKET  SOCKETS
-       *
-       ****************************************************************************************
+       **********************
        */
        
        socket.on('solicitar-ticket', (data, callback) => {
@@ -116,10 +114,9 @@ class Sockets {
 
       });
 
-      /****************************************************************************************
-          *  MARCADORES SOCKETS
-          *
-          ****************************************************************************************
+      /*************************
+       *  MARCADORES SOCKETS
+      **************************
       */
 
       // marcadores-activos
@@ -142,10 +139,38 @@ class Sockets {
 
       });
 
+      /*************************
+        *  CHAT SOCKETS
+      **************************
+      */
+
+      // TODO: validar token
+      // si el token no es valido desconectarlo
+
+
+      // TODO: saber que usuario está activo mediante el uid
+
+
+      // TODO: emitir todos los usuarios conectados
+
+
+      // TODO: Socket join --> para conectar a una sala 
+
+
+      // TODO: escuchar cuando el cliente manda un mensaje personalizada
+
+
+      // TODO: Disconnect
+      // Marcar en la bd que el usuario se desconecto
+
+
+      // TODO: emitir todos los usuarios conectados
+
+
+
 
     });
   }
-
 }
 
 
