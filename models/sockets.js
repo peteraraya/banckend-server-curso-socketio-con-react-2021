@@ -163,7 +163,6 @@ class Sockets {
       // TODO: Disconnect
       // Marcar en la bd que el usuario se desconecto
 
-
       // TODO: emitir todos los usuarios conectados
 
 

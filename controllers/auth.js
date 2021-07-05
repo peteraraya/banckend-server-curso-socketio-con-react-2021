@@ -16,7 +16,7 @@ const crearUsuario = async(req, res = response) => {
 
     if(existeEmail){
         return res.status(404).json({
-          ok: true,
+          ok: false,
           msg:'El correo ya existe'
         });
     }
@@ -37,6 +37,7 @@ const crearUsuario = async(req, res = response) => {
 
 
     res.json({
+      ok:true,
       usuario,
       token,
     })

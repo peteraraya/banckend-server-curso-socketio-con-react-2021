@@ -27,7 +27,7 @@ const UsuarioSchema = Schema({
 });
 
 // Serializar el usuario para no mandar el password
-UsuarioSchema.method('ToJSON', function (){
+UsuarioSchema.method('toJSON', function (){
 
   const { __v, _id, password, ...object  } = this.toObject();
 
